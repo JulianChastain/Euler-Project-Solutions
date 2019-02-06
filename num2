@@ -1,0 +1,17 @@
+public class num2
+{
+  public static void main(String [] args)
+  {
+    int currentValue = 1;
+    int previousValue = 0;
+    while(currentValue < 4000000)
+    {
+      System.out.println(currentValue);
+      int newValue = currentValue + previousValue;
+      previousValue = currentValue;
+      currentValue = newValue;
+    }
+  }
+}
+      
+      
