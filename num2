@@ -1,17 +1,21 @@
-public class num2
+public class Main
 {
   public static void main(String [] args)
   {
     int currentValue = 1;
     int previousValue = 0;
+    int sumOfEvenNumbers = 0;
     while(currentValue < 4000000)
     {
-      System.out.println(currentValue);
+      if(currentValue % 2 == 0)
+        {
+          sumOfEvenNumbers = sumOfEvenNumbers + currentValue;
+        }
       int newValue = currentValue + previousValue;
       previousValue = currentValue;
-      currentValue = newValue;
+      currentValue = newValue; 
     }
+    System.out.print(sumOfEvenNumbers);
   }
 }
-      
-      
+  
