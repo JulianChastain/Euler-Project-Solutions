@@ -1,0 +1,50 @@
+/*
+ *A palindromic number reads the same both ways. 
+ *The largest palindrome made from the product of two 2-digit numbers is 9009 = 91 * 99.
+ *Find the largest palindrome made from the product of two 3-digit numbers.
+ *This main method ensures that every single option is checked by passing every possible combination between a and b
+ *many options will be repeated, but this definitely will not leave out any
+ *Answer = 906609
+ */
+
+public class num4 
+{
+	int c = 0;
+    public static void main(String[] args) 
+    {
+    	
+        for(int a = 100; a < 1000; a++)
+        {
+        	for(int b = 100; b < 1000; b++)
+        	{
+        		new PalindromeChecker(a, b);
+        	}
+        }
+    }
+    public num4(int a, int b)
+	{
+		int product = a * b;
+		int ones             = product % 10;
+		int tens             = ((product - ones) % (100))/10;
+		int hundreds         = ((product - ones - 10*tens) % (1000))/(100);
+		int thousands        = ((product - ones - 10*tens -(100)*hundreds) % (10000))/(1000);
+		int tenThousands     = ((product - ones - 10*tens -(100)*hundreds - (1000)*thousands) % (100000))/(10000);
+		int hundredThousands = ((product - ones - 10*tens -(100)*hundreds - (1000)*thousands - (10000)*tenThousands) %(1000000))/(100000);
+		if(product <= 99999)
+		{
+			int reverseProduct = tenThousands + thousands*10 + hundreds*(100) + tens*(1000) + ones*(10000);
+			if(reverseProduct == product)
+				System.out.println(product);
+		}
+		if(product > 99999)
+		{
+			//System.out.println(product);
+			int reverseProduct = hundredThousands + tenThousands*10 + thousands*(100) + hundreds*(1000) + tens * (10000) + ones*(100000);
+			if(reverseProduct == product)
+			{
+				System.out.println(product);
+			}
+		}
+	}
+
+}
