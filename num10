@@ -1,0 +1,80 @@
+/**
+ * @(#)num10.java
+ *	The sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.
+ *	Find the sum of all the primes below two million.
+ * @author Julian Chastain
+ * @version 1.01 2019/3/18
+ */
+import java.util.Scanner;
+public class num10 {
+    public num10() {
+    }
+    public static void main(String[] args) {
+    	Scanner input = new Scanner(System.in);
+    	System.out.println("This program will print the sum of all primes under a certain number");
+    	System.out.println("What number would you like to use?");
+    	int arraySize = input.nextInt();
+    	num10 calculate = new num10();
+    	System.out.println("The sum is " + calculate.arraySum(calculate.sieve(arraySize)));    	
+    }
+    private int[] sieve(int arraySize)
+    {
+    	int numChecking;
+    	int[] primes = new int[arraySize];
+    	identityArray(primes);
+    	for(numChecking = 0; numChecking < primes.length; numChecking++){
+    		numChecking = nextNonZero(numChecking, primes);
+    		for(int a = 0; a < arraySize - numChecking; a++) {
+    			if (a + numChecking >= arraySize)
+    				break;
+    			int numBeingChecked = primes[numChecking+a];
+    			if(numBeingChecked != 0 && numBeingChecked % numChecking == 0)
+    				numBeingChecked = 0;
+    		}
+    	}
+    	return primes;
+    }
+    private long arraySum(int[] x)
+    {
+    	long sum = 0L;
+    	for(int i = 0; i < x.length; i++)
+    		sum += x[i];
+    	return sum;
+    }
+    private int[] identityArray (int[] x)
+    {
+    	for(int i = 0; i < x.length; i++)
+    	{
+    		x[i] = i + 2;
+    	}
+    	return x;
+    }
+    private int nextNonZero(int x, int[] z)
+    {
+    	while(z[x] == 0)
+    		x++;
+    	return x;
+    }
+}
+/*int totalSum = 0;
+    	int lessThan = 200000;
+    	int[] primes = new int[lessThan];
+    	for(int x = 0; x < lessThan; x++)
+    	{
+    		primes[x] = x + 2;
+    	}
+    	int i = 0;
+        while(i < (lessThan - 2))
+        {
+        	for(int a = i; a < (lessThan-2); a++)
+        	{
+        		if(primes[a + 1] != 0 && primes[a + 1] % i == 0)
+        			primes[a] = 0;
+        	}
+        	i++;
+        	while(primes[i] == 0)
+        		i++;
+        }
+        for(int b = 0; b < lessThan; b++)
+        	totalSum += primes[b];
+        System.out.println(totalSum); */
