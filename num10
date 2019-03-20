@@ -3,8 +3,10 @@
  *	The sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.
  *	Find the sum of all the primes below two million.
  * @author Julian Chastain
- * @version 1.01 2019/3/18
+ * @version 2.00 2019/3/18
+ * Answer is 142913828922, took about 1 minute 20 seconds of cpu time to calculate
  */
+import java.util.Arrays;
 import java.util.Scanner;
 public class num10 {
     public num10() {
@@ -14,22 +16,24 @@ public class num10 {
     	System.out.println("This program will print the sum of all primes under a certain number");
     	System.out.println("What number would you like to use?");
     	int arraySize = input.nextInt();
+    	input.close();
     	num10 calculate = new num10();
-    	System.out.println("The sum is " + calculate.arraySum(calculate.sieve(arraySize)));    	
+    	System.out.println("The sum is " + calculate.arraySum(calculate.sieve(arraySize)));  
+    	//System.out.println(calculate.sieve(arraySize)); 
+    	//System.out.println(Arrays.toString(calculate.sieve(arraySize)));
+    	
     }
     private int[] sieve(int arraySize)
     {
     	int numChecking;
+    	int numBeingChecked;
     	int[] primes = new int[arraySize];
     	identityArray(primes);
     	for(numChecking = 0; numChecking < primes.length; numChecking++){
     		numChecking = nextNonZero(numChecking, primes);
-    		for(int a = 0; a < arraySize - numChecking; a++) {
-    			if (a + numChecking >= arraySize)
-    				break;
-    			int numBeingChecked = primes[numChecking+a];
-    			if(numBeingChecked != 0 && numBeingChecked % numChecking == 0)
-    				numBeingChecked = 0;
+    		for(numBeingChecked = numChecking + 1; numBeingChecked < primes.length; numBeingChecked++) {
+    			if(primes[numBeingChecked] != 0 && primes[numBeingChecked] % primes[numChecking] == 0)
+    				primes[numBeingChecked] = 0;
     		}
     	}
     	return primes;
@@ -49,32 +53,10 @@ public class num10 {
     	}
     	return x;
     }
-    private int nextNonZero(int x, int[] z)
+    private int nextNonZero(int place, int[] list)
     {
-    	while(z[x] == 0)
-    		x++;
-    	return x;
+    	while(place < list.length && list[place] == 0)
+    		place++;
+    	return place;
     }
 }
-/*int totalSum = 0;
-    	int lessThan = 200000;
-    	int[] primes = new int[lessThan];
-    	for(int x = 0; x < lessThan; x++)
-    	{
-    		primes[x] = x + 2;
-    	}
-    	int i = 0;
-        while(i < (lessThan - 2))
-        {
-        	for(int a = i; a < (lessThan-2); a++)
-        	{
-        		if(primes[a + 1] != 0 && primes[a + 1] % i == 0)
-        			primes[a] = 0;
-        	}
-        	i++;
-        	while(primes[i] == 0)
-        		i++;
-        }
-        for(int b = 0; b < lessThan; b++)
-        	totalSum += primes[b];
-        System.out.println(totalSum); */
